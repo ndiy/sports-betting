@@ -86,9 +86,15 @@ async def _read_urls_content_async(urls: list[str]) -> list[str]:
         return await asyncio.gather(*futures)
 
 
+def _read_url_content(url: str) -> str:
+    """Read the URL content."""
+    resb = requests.get(url)
+    return resb.text
+
 def _read_urls_content(urls: list[str]) -> list[str]:
     """Read the URLs content."""
-    return asyncio.run(_read_urls_content_async(urls))
+    #return asyncio.run(_read_urls_content_async(urls))
+    return [_read_url_content(url) for url in urls]
 
 
 def _read_csvs(urls: list[str]) -> list[pd.DataFrame]:
